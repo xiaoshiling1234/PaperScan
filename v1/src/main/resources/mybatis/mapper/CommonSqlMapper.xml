@@ -31,14 +31,4 @@
         </if>
     </sql>
 
-    <!--<sql id="dayInfo">-->
-        <!--WITH tDateId AS (-->
-        <!--SELECT dateid FROM dimension.common_date d-->
-        <!--WHERE 1 = 1-->
-       <!--<![CDATA[-->
-         <!--AND d.dateId <= #{dateId}-->
-         <!--]]>-->
-        <!--ORDER BY dateId DESC LIMIT 6-->
-        <!--)-->
-    <!--</sql>-->
 </mapper>

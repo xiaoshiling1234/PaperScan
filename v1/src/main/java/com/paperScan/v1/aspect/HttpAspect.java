@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Component
 public class HttpAspect {
 
-    @Pointcut(value = "execution(public * com.eastedu.bigdata.remoteliving.controller.*.*(..))")
+    @Pointcut(value = "execution(public * com.paperScan.v1.controller.*.*(..))")
     public void log() {
     }
 

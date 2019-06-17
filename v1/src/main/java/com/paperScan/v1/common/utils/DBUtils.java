@@ -6,7 +6,8 @@ package com.paperScan.v1.common.utils;
  * DATE：2019/5/8 10:05
  */
 
-import com.eastedu.bigdata.remoteliving.common.conf.EnvConfReader;
+
+import com.paperScan.v1.common.conf.EnvConfReader;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.lang.reflect.Field;

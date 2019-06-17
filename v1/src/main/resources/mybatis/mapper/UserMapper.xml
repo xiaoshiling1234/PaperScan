@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paperScan.v1.dao.mapper.remote.UserMapper">
+    <!--用户注册-->
+    <insert id="signUpUser" parameterType="UserSignUpVO" keyProperty="userid">
+        insert into user(userid, password,username,phone,address) values(#{userid}, #{password},#{username}, #{phone}, #{address})
+    </insert>
+
+    <!--用户登录-->
+    <select id="userSignIn" resultType="int"
+            parameterType="String">
+        SELECT count(1) from user where userid=#{userid} and is_available=true
+    </select>
+
+    <!--用户签到-->
+    <update id="userSign" parameterType="String">
+        update user_sign set sign_time=now() where userid=#{userid}
+    </update>
+
+    <!--用户签到新增积分-->
+    <update id="userSignAddCore" parameterType="String">
+        update user set authrioty_score=(authrioty_score+5) where userid=#{userid}
+    </update>
+
+    <!--判断用户是否签到-->
+    <select id="userHasSign" resultType="int"
+            parameterType="String">
+        SELECT count(1) from user_sign where userid=#{userid} and sign_time<![CDATA[ >= ]]>CAST(SYSDATE()AS DATE)
+    </select>
+
+    <!--获取用户详细信息-->
+    <select id="userInfo" resultType="UserInfoDTO"
+            parameterType="String">
+        SELECT * from user where userid=#{userid}
+    </select>
+
+    <!--获取所有用户详细信息-->
+    <select id="allUserInfo" resultType="UserInfoDTO"
+            parameterType="String">
+        SELECT * from user
+    </select>
+
+</mapper>
