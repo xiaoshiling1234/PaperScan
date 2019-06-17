@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eastedu.bigdata.remoteliving.dao.mapper.remote.CommonSqlMapper">
+
+    <sql id="filterCondition">
+        <if test="schoolName != null">
+            AND schoolName = #{schoolName}
+        </if>
+        <if test="seniorCode != null">
+            AND seniorCode = #{seniorCode}
+        </if>
+        <!--<if test="seniorName != null">-->
+            <!--AND seniorName = #{seniorName}-->
+        <!--</if>-->
+        <if test="wlk != null">
+            AND wlk = #{wlk}
+        </if>
+        <if test="subjectCode != null">
+            AND subjectCode = #{subjectCode}
+        </if>
+        <if test="provinceAdCode != null">
+            AND provinceAdCode = #{provinceAdCode}
+        </if>
+        <if test="cityAdCode != null">
+            AND cityAdCode = #{cityAdCode}
+        </if>
+        <if test="areaAdCode != null">
+            AND areaAdCode = #{areaAdCode}
+        </if>
+    </sql>
+
+    <!--<sql id="dayInfo">-->
+        <!--WITH tDateId AS (-->
+        <!--SELECT dateid FROM dimension.common_date d-->
+        <!--WHERE 1 = 1-->
+       <!--<![CDATA[-->
+         <!--AND d.dateId <= #{dateId}-->
+         <!--]]>-->
+        <!--ORDER BY dateId DESC LIMIT 6-->
+        <!--)-->
+    <!--</sql>-->
+</mapper>
