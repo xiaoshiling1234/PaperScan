@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.paperScan.v1.dao.mapper.remote.UserMapper">
+<mapper namespace="com.paperScan.v1.dao.mapper.UserMapper">
     <!--用户注册-->
-    <insert id="signUpUser" parameterType="UserSignUpVO" keyProperty="userid">
+    <insert id="signUpUser" parameterType="UserSignUpVO">
         insert into user(userid, password,username,phone,address) values(#{userid}, #{password},#{username}, #{phone}, #{address})
     </insert>
 
     <!--用户登录-->
-    <select id="userSignIn" resultType="int"
+    <select id="userSignIn" resultType="java.lang.Integer"
             parameterType="String">
         SELECT count(1) from user where userid=#{userid} and is_available=true
     </select>
 
     <!--用户签到-->
     <update id="userSign" parameterType="String">
-        update user_sign set sign_time=now() where userid=#{userid}
+        insert into user_sign values(#{userid},now())
     </update>
 
     <!--用户签到新增积分-->
@@ -23,7 +23,7 @@
     </update>
 
     <!--判断用户是否签到-->
-    <select id="userHasSign" resultType="int"
+    <select id="userHasSign" resultType="java.lang.Integer"
             parameterType="String">
         SELECT count(1) from user_sign where userid=#{userid} and sign_time<![CDATA[ >= ]]>CAST(SYSDATE()AS DATE)
     </select>
@@ -39,5 +39,22 @@
             parameterType="String">
         SELECT * from user
     </select>
+
+    <!--用户更新-->
+    <update id="userUpdate" parameterType="UserUpdateVO">
+        update user set userid=#{userid}
+        <include refid="com.paperScan.v1.dao.mapper.CommonSqlMapper.setCondition"></include>
+          where userid=#{userid}
+    </update>
+
+    <!--用户失效-->
+    <update id="userDisable" parameterType="UserUpdateVO">
+        update user set is_available=0 where userid=#{userid}
+    </update>
+
+    <!--用户删除-->
+    <delete id="userDelete" parameterType="UserUpdateVO">
+        delete from user where userid=#{userid}
+    </delete>
 
 </mapper>

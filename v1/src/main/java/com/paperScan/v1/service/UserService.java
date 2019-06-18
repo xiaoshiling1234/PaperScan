@@ -20,11 +20,11 @@ public interface UserService {
      */
     String signUpUser(UserSignUpVO userSignUpVO);
 
-    int userUpdate(UserUpdateVO userUpdateVO);
+    String userUpdate(UserUpdateVO userUpdateVO);
 
     Boolean userSignIn(String userid);
 
-    Boolean userSign(String userid);
+    String userSign(String userid);
 
     Boolean userHasSign(String userid);
 

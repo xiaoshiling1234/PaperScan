@@ -1,6 +1,7 @@
 package com.paperScan.v1.controller;
+
+import com.paperScan.v1.pojo.dto.MessageDTO;
 import com.paperScan.v1.pojo.dto.UserInfoDTO;
-import com.paperScan.v1.pojo.po.UserInfoPO;
 import com.paperScan.v1.pojo.vo.UserSignUpVO;
 import com.paperScan.v1.pojo.vo.UserUpdateVO;
 import com.paperScan.v1.service.UserService;
@@ -13,11 +14,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,8 +39,12 @@ public class UserController {
     @RequestMapping(value = "/userSignUp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> sighUp(@Validated UserSignUpVO userSignUpVO) {
         LOGGER.info("用户注册，参数{}", userSignUpVO);
-        String userid = userService.signUpUser(userSignUpVO);
-        return new ResponseEntity<>(userid, HttpStatus.OK);
+        try {
+            String userid = userService.signUpUser(userSignUpVO);
+            return new ResponseEntity<>(new MessageDTO("账号注册成功："+userid), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(new MessageDTO("账号已存在"), HttpStatus.OK);
+        }
     }
 
     @ApiOperation(value = "用户登录", nickname = "userSignIn", response = String.class)
@@ -49,15 +52,15 @@ public class UserController {
     public HttpEntity<?> sighUp(@RequestParam(value="userid") String userid) {
         LOGGER.info("用户注册，参数{}", userid);
         Boolean hasAccount = userService.userSignIn(userid);
-        return new ResponseEntity<>(userid, HttpStatus.OK);
+        return new ResponseEntity<>(hasAccount, HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户更新", nickname = "userUpdate", response = Boolean.class)
     @RequestMapping(value = "/userUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> userUpDate(@Validated UserUpdateVO userUpdateVO) {
         LOGGER.info("用户注册，参数{}", userUpdateVO);
-        int lines = userService.userUpdate(userUpdateVO);
-        return new ResponseEntity<>(lines, HttpStatus.OK);
+        String message = userService.userUpdate(userUpdateVO);
+        return new ResponseEntity<>(new MessageDTO(message), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取用户是否签到", nickname = "userHasSign", response = Boolean.class)
@@ -70,10 +73,12 @@ public class UserController {
 
     @ApiOperation(value = "用户签到", nickname = "userSign", response = Boolean.class)
     @RequestMapping(value = "/userSign", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
     public HttpEntity<?> userSign(@RequestParam(value="userid") String userid) {
         LOGGER.info("用户注册，参数{}", userid);
-        Boolean hasSign = userService.userSign(userid);
-        return new ResponseEntity<>(hasSign, HttpStatus.OK);
+        String signInfo = userService.userSign(userid);
+        System.out.println(signInfo);
+        return new ResponseEntity<>(new MessageDTO(signInfo), HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取用户详细信息", nickname = "userInfo", response = UserInfoDTO.class)
@@ -81,7 +86,8 @@ public class UserController {
     public HttpEntity<?> userInfo(@RequestParam(value="userid") String userid) {
         LOGGER.info("用户注册，参数{}", userid);
         UserInfoDTO userInfo = userService.userInfo(userid);
-        return new ResponseEntity<>(userInfo, HttpStatus.OK);
+        return new ResponseEntity<>(String.valueOf(userInfo), HttpStatus.OK);
+
     }
 
     @ApiOperation(value = "获取所有用户详细信息", nickname = "allUserInfo", response = UserInfoDTO.class)

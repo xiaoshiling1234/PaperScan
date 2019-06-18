@@ -1,33 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eastedu.bigdata.remoteliving.dao.mapper.remote.CommonSqlMapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paperScan.v1.dao.mapper.CommonSqlMapper">
 
-    <sql id="filterCondition">
-        <if test="schoolName != null">
-            AND schoolName = #{schoolName}
+    <sql id="setCondition">
+        <if test="password != null">
+            , password = #{password}
         </if>
-        <if test="seniorCode != null">
-            AND seniorCode = #{seniorCode}
+        <if test="username != null">
+            , username = #{username}
         </if>
-        <!--<if test="seniorName != null">-->
-            <!--AND seniorName = #{seniorName}-->
-        <!--</if>-->
-        <if test="wlk != null">
-            AND wlk = #{wlk}
+        <if test="phone != null">
+            , phone = #{phone}
         </if>
-        <if test="subjectCode != null">
-            AND subjectCode = #{subjectCode}
+        <if test="address != null">
+            , address = #{address}
         </if>
-        <if test="provinceAdCode != null">
-            AND provinceAdCode = #{provinceAdCode}
-        </if>
-        <if test="cityAdCode != null">
-            AND cityAdCode = #{cityAdCode}
-        </if>
-        <if test="areaAdCode != null">
-            AND areaAdCode = #{areaAdCode}
+        <if test="authrioty_score != null">
+            , authrioty_score = #{authrioty_score}
         </if>
     </sql>
 

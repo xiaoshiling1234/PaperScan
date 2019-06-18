@@ -27,8 +27,8 @@ public class UserUpdateVO {
     @ApiModelProperty(value = "用户地址", example = "成都")
     private String address;
     @ApiModelProperty(value = "用户分数,后端管理才能修改分数", example = "0")
-    private int authrioty_score;
-    @ApiModelProperty(value = "修改方式", example = "(d删除 m逻辑删除），则只需要传入userid，u更新，",required = true)
+    private Integer authrioty_score;
+    @ApiModelProperty(value = "修改方式 (d删除 m逻辑删除 只需要传入userid），u更新，", example = "(d删除 m逻辑删除），则只需要传入userid，u更新，",required = true)
     private String modify_type;
 
     public String getUserid() {

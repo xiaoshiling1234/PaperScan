@@ -1,4 +1,4 @@
-package com.paperScan.v1.dao.mapper.remote;
+package com.paperScan.v1.dao.mapper;
 
 import com.paperScan.v1.pojo.dto.UserInfoDTO;
 import com.paperScan.v1.pojo.po.UserInfoPO;
@@ -20,7 +20,7 @@ public interface UserMapper {
      * @param userSignUpVO
      * @return
      */
-    String signUpUser(UserSignUpVO userSignUpVO);
+    int signUpUser(UserSignUpVO userSignUpVO);
 
     /**
      * 用户更新

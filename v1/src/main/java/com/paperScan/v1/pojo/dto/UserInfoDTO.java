@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,10 +27,12 @@ public class UserInfoDTO {
     private String username;
     @ApiModelProperty(value = "用户电话")
     private String phone;
+    @ApiModelProperty(value = "用户地址")
+    private String address;
     @ApiModelProperty(value = "用户权限分数")
     private int authrioty_score;
     @ApiModelProperty(value = "是否可用")
     private Boolean is_available;
     @ApiModelProperty(value = "创建时间")
-    private Date create_time;
+    private Timestamp create_time;
 }
