@@ -36,7 +36,7 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation(value = "用户注册", nickname = "userSignUp", response = String.class)
-    @RequestMapping(value = "/userSignUp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> sighUp(@Validated UserSignUpVO userSignUpVO) {
         LOGGER.info("用户注册，参数{}", userSignUpVO);
         try {
@@ -48,17 +48,17 @@ public class UserController {
     }
 
     @ApiOperation(value = "用户登录", nickname = "userSignIn", response = String.class)
-    @RequestMapping(value = "/userSignIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpEntity<?> sighUp(@RequestParam(value="userid") String userid) {
-        LOGGER.info("用户注册，参数{}", userid);
-        Boolean hasAccount = userService.userSignIn(userid);
+    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpEntity<?> sighUp(@RequestParam(value="userid") String userid,@RequestParam(value="password") String password) {
+        LOGGER.info("用户登录，参数{}", userid);
+        Boolean hasAccount = userService.userSignIn(userid,password);
         return new ResponseEntity<>(hasAccount, HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户更新", nickname = "userUpdate", response = Boolean.class)
     @RequestMapping(value = "/userUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> userUpDate(@Validated UserUpdateVO userUpdateVO) {
-        LOGGER.info("用户注册，参数{}", userUpdateVO);
+        LOGGER.info("用户更新，参数{}", userUpdateVO);
         String message = userService.userUpdate(userUpdateVO);
         return new ResponseEntity<>(new MessageDTO(message), HttpStatus.OK);
     }
@@ -66,7 +66,7 @@ public class UserController {
     @ApiOperation(value = "获取用户是否签到", nickname = "userHasSign", response = Boolean.class)
     @RequestMapping(value = "/userHasSign", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> userHasSign(@RequestParam(value="userid") String userid) {
-        LOGGER.info("用户注册，参数{}", userid);
+        LOGGER.info("获取用户是否签到，参数{}", userid);
         Boolean hasSign = userService.userHasSign(userid);
         return new ResponseEntity<>(hasSign, HttpStatus.OK);
     }
@@ -75,7 +75,7 @@ public class UserController {
     @RequestMapping(value = "/userSign", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public HttpEntity<?> userSign(@RequestParam(value="userid") String userid) {
-        LOGGER.info("用户注册，参数{}", userid);
+        LOGGER.info("用户签到，参数{}", userid);
         String signInfo = userService.userSign(userid);
         System.out.println(signInfo);
         return new ResponseEntity<>(new MessageDTO(signInfo), HttpStatus.OK);
@@ -84,7 +84,7 @@ public class UserController {
     @ApiOperation(value = "获取用户详细信息", nickname = "userInfo", response = UserInfoDTO.class)
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public HttpEntity<?> userInfo(@RequestParam(value="userid") String userid) {
-        LOGGER.info("用户注册，参数{}", userid);
+        LOGGER.info("获取用户详细信息，参数{}", userid);
         UserInfoDTO userInfo = userService.userInfo(userid);
         return new ResponseEntity<>(userInfo, HttpStatus.OK);
 

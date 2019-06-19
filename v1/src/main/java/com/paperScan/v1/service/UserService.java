@@ -22,7 +22,7 @@ public interface UserService {
 
     String userUpdate(UserUpdateVO userUpdateVO);
 
-    Boolean userSignIn(String userid);
+    Boolean userSignIn(String userid,String password);
 
     String userSign(String userid);
 

@@ -5,6 +5,7 @@ import com.paperScan.v1.pojo.po.UserInfoPO;
 import com.paperScan.v1.pojo.vo.UserSignUpVO;
 import com.paperScan.v1.pojo.vo.UserUpdateVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public interface UserMapper {
      * @param userid
      * @return
      */
-    int userSignIn(String userid);
+    int userSignIn(@Param("userid") String userid, @Param("password") String password);
 
     /**
      * 用户签到

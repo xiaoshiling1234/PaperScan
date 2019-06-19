@@ -7,9 +7,8 @@
     </insert>
 
     <!--用户登录-->
-    <select id="userSignIn" resultType="java.lang.Integer"
-            parameterType="String">
-        SELECT count(1) from user where userid=#{userid} and is_available=true
+    <select id="userSignIn" resultType="java.lang.Integer">
+        SELECT count(1) from user where userid=#{userid} and password=#{password} and is_available=true
     </select>
 
     <!--用户签到-->

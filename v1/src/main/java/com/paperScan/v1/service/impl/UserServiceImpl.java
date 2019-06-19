@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 返回值>0则表示注册过
      */
-    public Boolean userSignIn(String userid) {
-        int result=userMapper.userSignIn(userid);
+    public Boolean userSignIn(String userid,String password) {
+        int result=userMapper.userSignIn(userid,password);
         System.out.println(result);
         return result > 0 ? true : false;
     }
