@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paperScan.v1.dao.mapper.FileMapper">
+    <!--创建资源-->
+    <insert id="resourceCreate" parameterType="ImageUpVOWithUrl">
+        INSERT INTO resource (title,authrioty_score) VALUES (#{title},#{authrioty_score})
+        ON DUPLICATE KEY UPDATE authrioty_score=#{authrioty_score}
+     </insert>
+    <!--存取图片路径-->
+    <insert id="resourceImageCreate" parameterType="ImageUpVOWithUrl">
+        INSERT INTO resource_img (title,img_path,resource_level,resource_order)
+        VALUES (#{title},#{url},#{resource_level},#{authrioty_score})
+     </insert>
+    <!--存取文本路径-->
+    <insert id="resourceTextCreate" parameterType="TextUpVO">
+        INSERT INTO resource_text (title,text,resource_level,resource_order)
+        VALUES (#{title},#{text},#{resource_level},#{authrioty_score})
+     </insert>
+
+</mapper>

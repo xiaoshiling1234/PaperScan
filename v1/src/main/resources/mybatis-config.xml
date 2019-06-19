@@ -29,5 +29,6 @@
     <mappers>
         <mapper resource="mybatis/mapper/UserMapper.xml"/>
         <mapper resource="mybatis/mapper/CommonSqlMapper.xml"/>
+        <mapper resource="mybatis/mapper/FileMapper.xml"/>
     </mappers>
 </configuration>

@@ -2,10 +2,15 @@ package com.paperScan.v1.service.impl;
 
 import com.paperScan.v1.Exception.ServiceException;
 import com.paperScan.v1.config.MessageProperties;
+import com.paperScan.v1.dao.mapper.FileMapper;
 import com.paperScan.v1.pojo.IStatusMessage;
+import com.paperScan.v1.pojo.vo.ImageUpVO;
+import com.paperScan.v1.pojo.vo.ImageUpVOWithUrl;
+import com.paperScan.v1.pojo.vo.TextUpVO;
 import com.paperScan.v1.service.FileUpAndDownService;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +27,10 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
 
     @Autowired
     private MessageProperties config; //用来获取file-message.properties配置文件中的信息
-
+    @Autowired
+    private FileMapper fileMapper;
     @Override
-    public Map<String, Object> uploadPicture(MultipartFile file) throws ServiceException {
+    public Map<String, Object> uploadPicture(ImageUpVO imageUpVO,MultipartFile file) throws ServiceException {
         try {
             Map<String, Object> resMap = new HashMap<>();
             String[] IMAGE_TYPE = config.getImageType().split(",");
@@ -41,6 +47,7 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
                 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
                 // 获得文件类型
                 String fileType = file.getContentType();
+                System.out.println(fileType);
                 // 获得文件后缀名称
                 String imageName = fileType.substring(fileType.indexOf("/") + 1);
                 // 原名称
@@ -80,13 +87,26 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
                 resMap.put("oldFileName", oldFileName);
                 resMap.put("newFileName", newFileName);
                 resMap.put("fileSize", file.getSize());
+
             } else {
                 resMap.put("result", "图片格式不正确,支持png|jpg|jpeg");
             }
+            ImageUpVOWithUrl imageUpVOWithUrl = new ImageUpVOWithUrl();
+            BeanUtils.copyProperties(imageUpVO, imageUpVOWithUrl);
+            imageUpVOWithUrl.setUrl(path);
+            System.out.println(imageUpVO);
+            System.out.println(imageUpVOWithUrl);
+            fileMapper.resourceCreate(imageUpVOWithUrl);
+            fileMapper.resourceImageCreate(imageUpVOWithUrl);
             return resMap;
         } catch (Exception e) {
             e.printStackTrace();
             throw new ServiceException(e.getMessage());
         }
+    }
+
+    @Override
+    public Boolean uploadText(TextUpVO textUpVO) {
+        return fileMapper.resourceTextCreate(textUpVO)>0?true:false;
     }
 }

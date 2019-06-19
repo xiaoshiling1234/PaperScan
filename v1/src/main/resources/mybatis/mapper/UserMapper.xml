@@ -48,7 +48,7 @@
     </update>
 
     <!--用户失效-->
-    <update id="userDisable" parameterType="UserUpdateVO">
+    <update id="userDisable"  parameterType="UserUpdateVO">
         update user set is_available=0 where userid=#{userid}
     </update>
 

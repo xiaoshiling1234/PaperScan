@@ -86,7 +86,7 @@ public class UserController {
     public HttpEntity<?> userInfo(@RequestParam(value="userid") String userid) {
         LOGGER.info("用户注册，参数{}", userid);
         UserInfoDTO userInfo = userService.userInfo(userid);
-        return new ResponseEntity<>(String.valueOf(userInfo), HttpStatus.OK);
+        return new ResponseEntity<>(userInfo, HttpStatus.OK);
 
     }
 
