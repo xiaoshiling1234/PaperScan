@@ -8,7 +8,17 @@ import java.util.Map;
 
 public class test {
     public static void main(String[] args) {
-        String json="{\"userid\":\"xxx\",\"data\":[{\"name\":\"xxx\",\"phone\":\"xxx\"}]}";
+//        String json="{\"userid\":\"xxx\",\"data\":[{\"name\":\"xxx\",\"phone\":\"xxx\"}]}";
+        String json="{\n" +
+                "\t\"userid\": “xb”,\n" +
+                "\t\"data\": [{\n" +
+                "\t\t\"name\": “卢霜”,\n" +
+                "\t\t\"phone\": “+8613678178130”\n" +
+                "\t}, {\n" +
+                "\t\t\"name\": “三宝”,\n" +
+                "\t\t\"phone\": “+8615680832971”\n" +
+                "\t}]\n" +
+                "}";
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<JsonBean>() {}.getType();
         JsonBean jsonBean = gson.fromJson(json, type);

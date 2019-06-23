@@ -29,23 +29,39 @@
     <select id="scrollPictureDown" resultType="ScrollImaPathListDTO">
         select picture_order,img_path,jumpurl from scroll_picture where is_available=true
      </select>
+
     <!--存储下载-->
     <select id="top3AirticleDown" resultType="Top3AirticleDown">
-        select * from
-        (
-            SELECT a.title,a.authrioty_score,b.img_path,null as text,b.resource_level,b.resource_order
-            FROM
-            (SELECT title,authrioty_score FROM resource where is_available=TRUE
-            order by create_time desc limit 3) a
-            left JOIN resource_img b
-            on a.title=b.title
-            union all
-            SELECT a.title,a.authrioty_score,null as img_path,b.text as text,b.resource_level,b.resource_order
-            FROM
-            (SELECT title,authrioty_score FROM resource where is_available=TRUE
-            order by create_time desc limit 3) a
-            left JOIN resource_text b
-            on a.title=b.title
-        ) t order by resource_level,resource_order asc
+        SELECT a.title, a.authrioty_score, b.img_path, c.text AS text, b.resource_level
+		, b.resource_order
+        FROM (
+            SELECT title, authrioty_score
+            FROM resource
+            WHERE is_available = true
+            ORDER BY create_time DESC
+            LIMIT 3
+        ) a
+		LEFT JOIN resource_img b ON a.title = b.title
+		LEFT JOIN resource_text c ON a.title = c.title
     </select>
+
+<!--    &lt;!&ndash;存储下载&ndash;&gt;-->
+<!--    <select id="top3AirticleDown" resultType="Top3AirticleDown">-->
+<!--        select * from-->
+<!--        (-->
+<!--            SELECT a.title,a.authrioty_score,b.img_path,null as text,b.resource_level,b.resource_order-->
+<!--            FROM-->
+<!--            (SELECT title,authrioty_score FROM resource where is_available=TRUE-->
+<!--            order by create_time desc limit 3) a-->
+<!--            left JOIN resource_img b-->
+<!--            on a.title=b.title-->
+<!--            union all-->
+<!--            SELECT a.title,a.authrioty_score,null as img_path,b.text as text,b.resource_level,b.resource_order-->
+<!--            FROM-->
+<!--            (SELECT title,authrioty_score FROM resource where is_available=TRUE-->
+<!--            order by create_time desc limit 3) a-->
+<!--            left JOIN resource_text b-->
+<!--            on a.title=b.title-->
+<!--        ) t order by resource_level,resource_order asc-->
+<!--    </select>-->
 </mapper>

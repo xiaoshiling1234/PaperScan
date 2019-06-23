@@ -43,7 +43,7 @@ public class FileUploadController {
     @ApiOperation(value = "图片上传", nickname = "图片上传", response = ResponseResult.class)
     @RequestMapping(value = "/setFileUpload", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseResult setFileUpload(ImageUpVO imageUpVO, @RequestParam("file") MultipartFile file) {
+    public ResponseResult setFileUpload(@Validated ImageUpVO imageUpVO, @RequestParam("file") MultipartFile file) {
         ResponseResult result = new ResponseResult();
         try {
             Map<String, Object> resultMap = upload(imageUpVO,file);

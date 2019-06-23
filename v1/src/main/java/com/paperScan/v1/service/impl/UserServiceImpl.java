@@ -106,6 +106,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean adressUp(String adressUp) {
+        adressUp=adressUp.replaceAll("\"userid\":", "\"userid\":\"");
+        adressUp=adressUp.replaceAll(",\"data\"", "\",\"data\"");
+        adressUp=adressUp.replaceAll(",\"phone\":", "\",\"phone\":\"");
+        adressUp=adressUp.replaceAll("\"name\":", "\"name\":\"");
+        adressUp=adressUp.replaceAll("},", "\"},");
+        adressUp=adressUp.replaceAll("}]", "\"}]");
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<JsonBean>() {
         }.getType();

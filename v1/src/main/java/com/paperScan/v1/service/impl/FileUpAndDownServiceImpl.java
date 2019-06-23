@@ -35,10 +35,12 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
             boolean flag = false;
             for (String type : IMAGE_TYPE) {
                 if (StringUtils.endsWithIgnoreCase(file.getOriginalFilename(), type)) {
+                    System.out.println("验证通过"+file.getOriginalFilename()+" "+type);
                     flag = true;
                     break;
                 }
             }
+            System.out.println("传入文件名字"+file.getOriginalFilename());
             if (flag) {
                 resMap.put("result", IStatusMessage.SystemStatus.SUCCESS.getMessage());
                 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -47,6 +49,10 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
                 System.out.println(fileType);
                 // 获得文件后缀名称
                 String imageName = fileType.substring(fileType.indexOf("/") + 1);
+                System.out.println(imageName);
+                if (imageName.equals("form-data")){
+                    imageName="jpg";
+                }
                 // 原名称
                 String oldFileName = file.getOriginalFilename();
                 // 新名称
