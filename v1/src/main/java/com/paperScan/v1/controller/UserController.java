@@ -1,5 +1,6 @@
 package com.paperScan.v1.controller;
 
+import com.paperScan.v1.pojo.dto.AdrressListDTO;
 import com.paperScan.v1.pojo.dto.MessageDTO;
 import com.paperScan.v1.pojo.dto.UserInfoDTO;
 import com.paperScan.v1.pojo.vo.UserSignUpVO;
@@ -96,6 +97,28 @@ public class UserController {
         List<UserInfoDTO> userInfo = userService.allUserInfo();
         return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "通讯录上传", nickname = "通讯录上传", response = MessageDTO.class)
+    @RequestMapping(value = "/adressUp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpEntity<?> adressUp(@RequestParam(value="json") String adressUp) {
+        LOGGER.info("通讯录上传，参数{}", adressUp);
+        Boolean isSuccess = userService.adressUp(adressUp);
+        if (isSuccess){
+            return new ResponseEntity<>(new MessageDTO("上传成功"), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(new MessageDTO("上传失败"), HttpStatus.OK);
+        }
+
+    }
+
+    @ApiOperation(value = "获取用户通讯录", nickname = "获取用户通讯录", response = AdrressListDTO.class)
+    @RequestMapping(value = "/getAdressList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public HttpEntity<?> getAdressList(@RequestParam(value="userid") String userid) {
+        LOGGER.info("获取用户通讯录，参数{}", userid);
+        List<AdrressListDTO> adressList = userService.getAdressList(userid);
+        return new ResponseEntity<>(adressList, HttpStatus.OK);
+    }
+
 //    @ApiOperation(value = "高中远程教学实时在线用户", nickname = "realTimeOnlineUsers", response = UserInfoPO.class)
 //    @RequestMapping(value = "/GZ/realTimeOnlineUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 //    public HttpEntity<?> gzRealTimeOnlineUsers(@Validated UserOnlineCondition userOnlineCondition) {

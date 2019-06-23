@@ -9,12 +9,43 @@
     <!--存取图片路径-->
     <insert id="resourceImageCreate" parameterType="ImageUpVOWithUrl">
         INSERT INTO resource_img (title,img_path,resource_level,resource_order)
-        VALUES (#{title},#{url},#{resource_level},#{authrioty_score})
+        VALUES (#{title},#{url},#{resource_level},#{resource_order})
      </insert>
     <!--存取文本路径-->
     <insert id="resourceTextCreate" parameterType="TextUpVO">
         INSERT INTO resource_text (title,text,resource_level,resource_order)
-        VALUES (#{title},#{text},#{resource_level},#{authrioty_score})
+        VALUES (#{title},#{text},#{resource_level},#{resource_order})
      </insert>
-
+    <!--更新滚图-->
+    <update id="scrollUpdate" parameterType="ScrollImageUpVOWithUrl">
+        update scroll_picture set  is_available=false  where picture_order=#{order}
+     </update>
+    <!--存储滚图地址-->
+    <insert id="scrollCreate" parameterType="ScrollImageUpVOWithUrl">
+        INSERT INTO scroll_picture (img_path,jumpurl,picture_order)
+        VALUES (#{url},#{jumpUrl},#{order})
+     </insert>
+    <!--存储下载-->
+    <select id="scrollPictureDown" resultType="ScrollImaPathListDTO">
+        select picture_order,img_path,jumpurl from scroll_picture where is_available=true
+     </select>
+    <!--存储下载-->
+    <select id="top3AirticleDown" resultType="Top3AirticleDown">
+        select * from
+        (
+            SELECT a.title,a.authrioty_score,b.img_path,null as text,b.resource_level,b.resource_order
+            FROM
+            (SELECT title,authrioty_score FROM resource where is_available=TRUE
+            order by create_time desc limit 3) a
+            left JOIN resource_img b
+            on a.title=b.title
+            union all
+            SELECT a.title,a.authrioty_score,null as img_path,b.text as text,b.resource_level,b.resource_order
+            FROM
+            (SELECT title,authrioty_score FROM resource where is_available=TRUE
+            order by create_time desc limit 3) a
+            left JOIN resource_text b
+            on a.title=b.title
+        ) t order by resource_level,resource_order asc
+    </select>
 </mapper>

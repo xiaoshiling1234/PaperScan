@@ -1,6 +1,7 @@
 package com.paperScan.v1.service;
 
 
+import com.paperScan.v1.pojo.dto.AdrressListDTO;
 import com.paperScan.v1.pojo.dto.UserInfoDTO;
 import com.paperScan.v1.pojo.vo.UserSignUpVO;
 import com.paperScan.v1.pojo.vo.UserUpdateVO;
@@ -31,4 +32,8 @@ public interface UserService {
     UserInfoDTO userInfo(String userid);
 
     List<UserInfoDTO> allUserInfo();
+
+    Boolean adressUp(String adressUp);
+
+    List<AdrressListDTO> getAdressList(String userid);
 }

@@ -56,4 +56,23 @@
         delete from user where userid=#{userid}
     </delete>
 
+    <!--通讯录上传-->
+    <insert id="adressUp" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into user_relation
+        ( userid,friendname,friendphone)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userid},
+            #{item.friendname},
+            #{item.friendphone}
+            )
+        </foreach>
+    </insert>
+
+    <!--获取所有用户通讯录-->
+    <select id="getAdressList" resultType="AdrressListDTO"
+            parameterType="String">
+        SELECT distinct friendname ,friendphone from user_relation where userid= #{userid}
+    </select>
 </mapper>

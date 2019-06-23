@@ -1,7 +1,10 @@
 package com.paperScan.v1.dao.mapper;
 
+import com.paperScan.v1.pojo.JsonBean;
+import com.paperScan.v1.pojo.dto.AdrressListDTO;
 import com.paperScan.v1.pojo.dto.UserInfoDTO;
 import com.paperScan.v1.pojo.po.UserInfoPO;
+import com.paperScan.v1.pojo.vo.UserRelationVO;
 import com.paperScan.v1.pojo.vo.UserSignUpVO;
 import com.paperScan.v1.pojo.vo.UserUpdateVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -86,4 +89,12 @@ public interface UserMapper {
      */
     List<UserInfoDTO> allUserInfo();
 
+    /**
+     * 上传通讯录
+     * @param info
+     * @return
+     */
+    int adressUp(List<UserRelationVO> info);
+
+    List<AdrressListDTO> getAdressList(String userid);
 }

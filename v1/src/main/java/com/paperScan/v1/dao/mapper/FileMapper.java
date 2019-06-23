@@ -1,8 +1,13 @@
 package com.paperScan.v1.dao.mapper;
 
+import com.paperScan.v1.pojo.dto.ScrollImaPathListDTO;
+import com.paperScan.v1.pojo.dto.Top3AirticleDown;
 import com.paperScan.v1.pojo.vo.ImageUpVOWithUrl;
+import com.paperScan.v1.pojo.vo.ScrollImageUpVOWithUrl;
 import com.paperScan.v1.pojo.vo.TextUpVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * Description:查询直播数据库
@@ -32,4 +37,25 @@ public interface FileMapper {
      */
     int resourceTextCreate(TextUpVO textUpVO);
 
+    /**
+     * 更新滚图
+     * @param scrollImageUpVOWithUrl
+     * @return
+     */
+    int scrollUpdate(ScrollImageUpVOWithUrl scrollImageUpVOWithUrl);
+
+    /**
+     * 滚图生成
+     * @param scrollImageUpVOWithUrl
+     * @return
+     */
+    int scrollCreate(ScrollImageUpVOWithUrl scrollImageUpVOWithUrl);
+
+    /**
+     * 滚图下载
+     * @return
+     */
+    List<ScrollImaPathListDTO> scrollPictureDown();
+
+    List<Top3AirticleDown> top3AirticleDown();
 }
