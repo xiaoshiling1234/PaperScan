@@ -50,9 +50,9 @@ public class FileUpAndDownServiceImpl implements FileUpAndDownService {
                 // 获得文件后缀名称
                 String imageName = fileType.substring(fileType.indexOf("/") + 1);
                 System.out.println(imageName);
-                if (imageName.equals("form-data")){
-                    imageName="jpg";
-                }
+//                if (imageName.equals("form-data")){
+//                    imageName="jpg";
+//                }
                 // 原名称
                 String oldFileName = file.getOriginalFilename();
                 // 新名称

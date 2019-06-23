@@ -1,0 +1,59 @@
+create database paper_scan;
+use paper_scan;
+
+
+create table user(
+userid varchar(255) PRIMARY KEY,
+password varchar(255),
+username varchar(255),
+phone varchar(40),
+address varchar(255),
+authrioty_score int DEFAULT 0,
+is_available boolean default true,
+create_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+);
+
+create table user_sign(
+userid varchar(255),
+sign_time datetime DEFAULT NULL
+);
+
+create table user_relation(
+userid varchar(255),
+friendname varchar(255) ,
+friendphone varchar(40) ,
+update_time timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+create table resource(
+title varchar(255) PRIMARY KEY,
+create_user varchar(255) default 'admin',
+is_available boolean default true,
+authrioty_score int,
+create_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+);
+
+create table resource_img(
+title varchar(255),
+img_path varchar(255),
+resource_level int default 1,
+resource_order int,
+update_time timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+create table resource_text(
+title varchar(255),
+text text,
+resource_level int default 1,
+resource_order int,
+update_time timestamp  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+create table scroll_picture(
+img_path varchar(255),
+jumpurl varchar(255),
+picture_order int,
+is_available boolean default true,
+create_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+);
+

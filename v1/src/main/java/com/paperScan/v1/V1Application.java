@@ -26,7 +26,7 @@ public class V1Application {
 		//resolveLazily属性启用是为了推迟文件解析，以在在UploadAction中捕获文件大小异常
 		resolver.setResolveLazily(true);
 		resolver.setMaxInMemorySize(40960);
-		resolver.setMaxUploadSize(3 * 1024 * 1024);//上传文件大小 3M 3*1024*1024
+		resolver.setMaxUploadSize(20 * 1024 * 1024);//上传文件大小 3M 3*1024*1024
 		return resolver;
 	}
 }
